@@ -1,0 +1,71 @@
+
+    ============================
+        Authorization test
+    ============================
+    
+    request done at "/v1/sentiment"
+    | username="bob"
+    | password="*******"  # Masquer le mot de passe pour la sécurité
+    
+    expected result = 200
+    actual result = 200
+    
+    ==>  SUCCESS
+    
+
+    ============================
+        Authorization test
+    ============================
+    
+    request done at "/v2/sentiment"
+    | username="bob"
+    | password="*******"  # Masquer le mot de passe pour la sécurité
+    
+    expected result = 403
+    actual result = 403
+    
+    ==>  SUCCESS
+    
+
+    ============================
+        Authorization test
+    ============================
+    
+    request done at "/v1/sentiment"
+    | username="alice"
+    | password="**********"  # Masquer le mot de passe pour la sécurité
+    
+    expected result = 200
+    actual result = 200
+    
+    ==>  SUCCESS
+    
+Authentication test:
+Request: /permissions | username='alice', password='**********'
+Expected result: 200, Actual result: 200
+Test: SUCCESS
+
+Authentication test:
+Request: /permissions | username='bob', password='*******'
+Expected result: 200, Actual result: 200
+Test: SUCCESS
+
+
+    ============================
+        Authorization test
+    ============================
+    
+    request done at "/v2/sentiment"
+    | username="alice"
+    | password="**********"  # Masquer le mot de passe pour la sécurité
+    
+    expected result = 200
+    actual result = 200
+    
+    ==>  SUCCESS
+    
+Authentication test:
+Request: /permissions | username='clementine', password='*********'
+Expected result: 403, Actual result: 403
+Test: SUCCESS
+

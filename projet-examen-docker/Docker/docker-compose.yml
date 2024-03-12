@@ -1,0 +1,54 @@
+version: "3.9"
+services:
+  api:
+    image: datascientest/fastapi:1.0.0
+    container_name: my_api_service
+    networks:
+      - exam_network
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./projet-examen-docker/logs:/app/logs  # Mapping du répertoire local des logs dans le conteneur
+
+  test_authentication:
+    build: ./test_authentication
+    container_name: my_test_authentication_service
+    depends_on:
+      - api
+    networks:
+      - exam_network
+    environment:
+      API_URL: "http://my_api_service:8000"
+      LOG: "1"
+    volumes:
+      - ./logs:/app/logs  # Mapping du répertoire local des logs dans le conteneur
+
+
+  test_authorization:
+    build: ./test_authorization
+    container_name: my_test_authorization_service
+    depends_on:
+      - api
+    networks:
+      - exam_network
+    environment:
+      API_URL: "http://my_api_service:8000"
+      LOG: "1"
+    volumes:
+      - ./logs:/app/logs
+
+  test_content:
+    build: ./test_content
+    container_name: my_test_content_service
+    depends_on:
+      - api
+    networks:
+      - exam_network
+    environment:
+      API_URL: "http://my_api_service:8000"
+      LOG: "1"
+    volumes:
+      - ./logs:/app/logs
+
+networks:
+  exam_network:
